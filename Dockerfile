@@ -5,15 +5,17 @@ LABEL maintainer="szhao5@ualberta.ca"
 
 
 RUN apt-get update \
+    # https://github.com/spraakbanken/korp-backend
 	&& apt-get install subversion git default-libmysqlclient-dev -y \
 	&& svn co http://svn.code.sf.net/p/cwb/code/cwb/trunk cwb \
 	&& cd cwb \
 	&& ./install-scripts/install-linux \
 	&& mkdir -p /corpora/data \
 	&& mkdir -p /corpora/registry \
+	&& cd / \
 	&& git clone https://github.com/UAlbertaALTLab/korp-backend.git \
 	&& cd korp-backend \
-	&& pip3 install -r requirements.txt 
+	&& pip3 install -r requirements.txt
 ## Install Apache2 and other stuff needed to access svn via WebDav
 #RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 ## Install svn
